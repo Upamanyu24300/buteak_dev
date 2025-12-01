@@ -31,14 +31,13 @@ export default function ChatbotControls() {
     };
 
     const handleUpdate = async () => {
-        setLoading({ ...loading, update: true });
-        setResults({ ...results, update: null });
+        setLoading(prev => ({ ...prev, update: true }));
+        setResults(prev => ({ ...prev, update: null }));
 
         try {
-            const response = await fetch("https://api.buteak.in/update", {
+            const response = await fetch("/api/update", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({}),
             });
 
             if (!response.ok) {
@@ -46,11 +45,11 @@ export default function ChatbotControls() {
             }
 
             const data = await response.json();
-            setResults({ ...results, update: { success: true, data } });
+            setResults(prev => ({ ...prev, update: { success: true, data } }));
         } catch (err) {
-            setResults({ ...results, update: { success: false, error: err.message } });
+            setResults(prev => ({ ...prev, update: { success: false, error: err.message } }));
         } finally {
-            setLoading({ ...loading, update: false });
+            setLoading(prev => ({ ...prev, update: false }));
         }
     };
 
@@ -67,14 +66,13 @@ export default function ChatbotControls() {
 
         if (!confirmed) return;
 
-        setLoading({ ...loading, rebuild: true });
-        setResults({ ...results, rebuild: null });
+        setLoading(prev => ({ ...prev, rebuild: true }));
+        setResults(prev => ({ ...prev, rebuild: null }));
 
         try {
-            const response = await fetch("https://api.buteak.in/rebuild", {
+            const response = await fetch("/api/rebuild", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({}),
             });
 
             if (!response.ok) {
@@ -82,11 +80,11 @@ export default function ChatbotControls() {
             }
 
             const data = await response.json();
-            setResults({ ...results, rebuild: { success: true, data } });
+            setResults(prev => ({ ...prev, rebuild: { success: true, data } }));
         } catch (err) {
-            setResults({ ...results, rebuild: { success: false, error: err.message } });
+            setResults(prev => ({ ...prev, rebuild: { success: false, error: err.message } }));
         } finally {
-            setLoading({ ...loading, rebuild: false });
+            setLoading(prev => ({ ...prev, rebuild: false }));
         }
     };
 
